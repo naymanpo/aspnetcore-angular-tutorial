@@ -12,6 +12,7 @@ using System;
 namespace DatingApp.API.Controllers
 {
     [Route("api/[controller]")]
+    [ApiController]
     public class AuthController : Controller
     {
         private readonly IAuthRepository _repo;
@@ -69,7 +70,7 @@ namespace DatingApp.API.Controllers
 
             var token = tokenHandler.CreateToken(tokenDescriptor);
             var tokenString = tokenHandler.WriteToken( token );
-            return Ok(tokenString);
+            return Ok(new {tokenString});
         }
     }
 }

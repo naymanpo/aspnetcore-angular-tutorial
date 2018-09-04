@@ -1,0 +1,13 @@
+<div style="text-align: center">
+  <h1>Find your match</h1>
+  <p class="lead"> Turn on in to your viwe matches ... All you need to do sign up</p>
+  <div class="text-center">
+    <button class="btn btn-primary btn-lg" (click)="registerToggle()">Register </button>
+    <button class="btn btn-info btn-lg">Learn More</button>
+  </div>
+</div>
+<div *ngIf="registerMode" class="container">
+  <div class="col-md-4 col-md-offset-4">
+    <app-register [valuesFromHome]="values" (cancelRegister)= "cancelRegisterMode($event)"></app-register>
+  </div>
+</div>
