@@ -1,18 +1,18 @@
 using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
+using DatingApp.API.Models;
 
-namespace DatingApp.API.Models
+namespace DatingApp.API.Dtos
 {
-    public class User
+    public class UserForDetailedDto
     {
         public int Id { set; get; }
         public string Username { set; get; }
         public byte[] PasswordHash { set; get; }
-        public byte[] PasswordSalt { set; get;}
+        public byte[] PasswordSalt { set; get; }
 
         public string Gender { get; set; }
-        public DateTime DateOfBirth { set; get; }
+        public int Age { set; get; }
         public string KnownAs { set; get; }
         public DateTime Created { set; get; }
         public DateTime LastActive { set; get; }
@@ -20,12 +20,10 @@ namespace DatingApp.API.Models
         public string LookingFor { set; get; }
         public string Interests { set; get; }
         public string City { set; get; }
-        public string Country { set; get;}
+        public string Country { set; get; }
+        public string PhotoUrl;
+        public ICollection<PhotoForDetailedDto> Photos { set; get; }
 
-        public ICollection<Photo> Photos { set; get; }
-
-        public User() {
-            Photos = new Collection<Photo>();
-        }
+       
     }
 }

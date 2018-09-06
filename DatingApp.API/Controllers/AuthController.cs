@@ -8,6 +8,7 @@ using System.Text;
 using System.Security.Claims;
 using Microsoft.IdentityModel.Tokens;
 using System;
+using Microsoft.Extensions.Configuration;
 
 namespace DatingApp.API.Controllers
 {
@@ -15,10 +16,12 @@ namespace DatingApp.API.Controllers
     [ApiController]
     public class AuthController : Controller
     {
+        IConfiguration _config;
         private readonly IAuthRepository _repo;
-        public AuthController(IAuthRepository repo)
+        public AuthController(IAuthRepository repo,IConfiguration config)
         {
             _repo = repo;
+            _config = config;
         }
 
 
@@ -54,7 +57,7 @@ namespace DatingApp.API.Controllers
 
             var tokenHandler = new JwtSecurityTokenHandler();
 
-            var key = Encoding.ASCII.GetBytes("super secret Key");
+            var key = Encoding.ASCII.GetBytes(_config.GetSection("AppSettings:token").Value);
 
             var tokenDescriptor = new SecurityTokenDescriptor {
                 Subject = new ClaimsIdentity(new Claim[]{
