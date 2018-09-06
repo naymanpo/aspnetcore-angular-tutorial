@@ -1,3 +1,6 @@
+import { RouterModule } from '@angular/router';
+import { AuthGuard } from './_guard/auth.guard';
+import { AlertifyService } from './_services/alertify.service';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpModule } from '@angular/http';
@@ -8,21 +11,32 @@ import { NavComponent } from './nav/nav.component';
 import { AuthService } from './_services/auth.service';
 import { HomeComponent } from './home/home.component';
 import { RegisterComponent } from './register/register.component';
+import { appRoutes } from './routes';
+import { MemberListComponent } from './member-list/member-list.component';
+import { MessageComponent } from './message/message.component';
+import { ListsComponent } from './lists/lists.component';
+
 
 @NgModule({
    declarations: [
       AppComponent,
       NavComponent,
       HomeComponent,
-      RegisterComponent
+      RegisterComponent,
+      MemberListComponent,
+      MessageComponent,
+      ListsComponent
    ],
    imports: [
       BrowserModule,
       HttpModule,
-      FormsModule
+      FormsModule,
+      RouterModule.forRoot(appRoutes)
    ],
    providers: [
-      AuthService
+      AuthService,
+      AlertifyService,
+      AuthGuard
    ],
    bootstrap: [
       AppComponent
