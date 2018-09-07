@@ -21,6 +21,8 @@ import { MemberCardComponent } from './member-card/member-card.component';
 import { MemberDetailComponent } from './member-detail/member-detail.component';
 import { MemberDetailResolver } from './_resolvers/member-detail.resolver';
 
+import { NgxGalleryModule } from 'ngx-gallery';
+
 
 @NgModule({
    declarations: [
@@ -40,7 +42,8 @@ import { MemberDetailResolver } from './_resolvers/member-detail.resolver';
       FormsModule,
       RouterModule.forRoot(appRoutes),
       AuthModule,
-       TabsModule.forRoot()
+       TabsModule.forRoot(),
+       NgxGalleryModule
    ],
    providers: [
       AuthService,

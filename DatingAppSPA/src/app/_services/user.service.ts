@@ -1,5 +1,6 @@
 import { AuthHttp } from 'angular2-jwt';
-import { Observable } from 'rxjs';
+// tslint:disable-next-line:import-blacklist
+import { Observable } from 'rxjs/Rx';
 import { Injectable } from '@angular/core';
 import { environment } from '../../environments/environment';
 import { User } from '../_models/user';
