@@ -1,0 +1,61 @@
+<div class="container">
+  <div class="row">
+    <h1>{{user.knownAs}}</h1>
+  </div>
+
+  <div class="row">
+    <div class="col-sm-4">
+      <div class="panel panel-default">
+        <img src="{{ user.photoUrl }}" alt="{{ user.knownAs }}" class="profile-image thumbnail">
+        <div class="panel-body">
+          <div>
+            <strong>Location:</strong>
+            <p>{{user.city}}, {{user.country}}</p>
+          </div>
+          <div>
+            <strong>Age:</strong>
+            <p>{{user.Age}}</p>
+          </div>
+          <div>
+            <strong>Last Active:</strong>
+            <p>{{user.lastActive}}</p>
+          </div>
+          <div>
+            <strong>Member Since</strong>
+            <p>{{user?.created}}</p>
+          </div>
+        </div>
+        <div class="panel-footer">
+          <div class="btn-group-justified">
+            <div class="btn-group">
+              <button class="btn btn-primary">Like</button>
+            </div>
+            <div class="btn-group">
+              <button class="btn btn-success">Message</button>
+            </div>
+           </div>
+          </div>
+      </div>
+    </div>
+    <div class="col-sm-8">
+      <tabset>
+        <tab heading="About {{user.knownas}}">
+          <h4>Description</h4>
+          <p>{{user.introducation}}</p>
+          <h4>Looking For</h4>
+          <p>{{user.lookingFor}}</p>
+        </tab>
+        <tab heading="Interests">
+          <h4>Description</h4>
+          <p>{{user.interests}}</p>
+        </tab>
+        <tab heading="Photos">
+          <p>Photo will be go here</p>
+        </tab>
+        <tab heading="Message">
+          <p>Message will be go here </p>
+        </tab>
+      </tabset>
+    </div>
+  </div>
+</div>

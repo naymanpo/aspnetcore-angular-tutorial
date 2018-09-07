@@ -1,9 +1,9 @@
+import { AuthHttp } from 'angular2-jwt';
 import { Observable } from 'rxjs';
-import { Http, RequestOptions , Headers} from '@angular/http';
-
 import { Injectable } from '@angular/core';
 import { environment } from '../../environments/environment';
 import { User } from '../_models/user';
+import { RequestOptions, Headers, Http } from '@angular/http';
 
 @Injectable({
   providedIn: 'root'
@@ -11,10 +11,16 @@ import { User } from '../_models/user';
 export class UserService {
   baseUrl =  environment.apiUrl;
 
-  constructor(private http: Http) { }
+  constructor(private authHttp: Http) { }
   getUsers(): Observable<User[]>  {
-    return this.http.get(this.baseUrl + 'users', this.jwt())
+    return this.authHttp.get(this.baseUrl + 'users', this.jwt())
     .map(response => <User[]> response.json())
+    .catch(this.handleError);
+  }
+
+  getUser( id ): Observable<User> {
+    return this.authHttp.get(this.baseUrl + 'users/' + id, this.jwt())
+    .map(response => <User> response.json())
     .catch(this.handleError);
   }
   private jwt() {
