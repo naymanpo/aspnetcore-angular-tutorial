@@ -15,6 +15,8 @@ import { appRoutes } from './routes';
 import { MemberListComponent } from './member-list/member-list.component';
 import { MessageComponent } from './message/message.component';
 import { ListsComponent } from './lists/lists.component';
+import { UserService } from './_services/user.service';
+import { MemberCardComponent } from './member-card/member-card.component';
 
 
 @NgModule({
@@ -25,7 +27,8 @@ import { ListsComponent } from './lists/lists.component';
       RegisterComponent,
       MemberListComponent,
       MessageComponent,
-      ListsComponent
+      ListsComponent,
+      MemberCardComponent
    ],
    imports: [
       BrowserModule,
@@ -36,7 +39,8 @@ import { ListsComponent } from './lists/lists.component';
    providers: [
       AuthService,
       AlertifyService,
-      AuthGuard
+      AuthGuard,
+      UserService
    ],
    bootstrap: [
       AppComponent
