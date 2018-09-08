@@ -24,6 +24,10 @@ export class UserService {
     .map(response => <User> response.json())
     .catch(this.handleError);
   }
+
+  updateUser( id: number, user: User) {
+    return this.authHttp.put(this.baseUrl + 'users/' + id, user, this.jwt()).catch(this.handleError);
+  }
   private jwt() {
     const token = localStorage.getItem('token');
     if (token) {

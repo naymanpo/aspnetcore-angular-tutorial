@@ -1,0 +1,59 @@
+<div class="container">
+  <div class="row">
+    <h1>{{user.knownAs}}</h1>
+  </div>
+
+  <div class="row">
+    <div class="col-sm-4">
+      <div class="panel panel-default">
+        <img src="{{ user.photoUrl }}" alt="{{ user.knownAs }}" class="profile-image thumbnail">
+        <div class="panel-body">
+          <div>
+            <strong>Location:</strong>
+            <p>{{user.city}}, {{user.country}}</p>
+          </div>
+          <div>
+            <strong>Age:</strong>
+            <p>{{user.Age}}</p>
+          </div>
+          <div>
+            <strong>Last Active:</strong>
+            <p>{{user.lastActive}}</p>
+          </div>
+          <div>
+            <strong>Member Since</strong>
+            <p>{{user?.created}}</p>
+          </div>
+        </div>
+        <div class="panel-footer">
+          <button [disabled]="!editForm.dirty" form="editForm" class="btn btn-success btn-block">Save Change</button>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-8">
+      <tabset>
+        <tab heading="Edit Profile">
+          <form #editForm="ngForm" id="editForm" (ngSubmit)="updateUser()">
+          <h4>Description</h4>
+         <textarea name="introduction" row="6" [(ngModel)]="user.introduction" class="form-control"></textarea>
+          <h4>Looking For</h4>
+          <textarea name="lookingFor" row="6" [(ngModel)]="user.lookingFor" class="form-control"></textarea>
+       
+          <h4>Location Detail:</h4>
+          <textarea name="interests" row="6" [(ngModel)]="user.interests" class="form-control"></textarea>
+          <div class="form-inline">
+            <label for="city">City:</label>
+             <input type="text" name="city" [(ngModel)]="user.city" class="form-control">
+             <label for="country">Country:</label>
+             <input type="text" [(ngModel)]="user.country" name="country" class="form-control">
+          </div>
+          </form>
+          </tab>
+        <tab heading="Photos">
+            <p>Photo edit here</p>
+        </tab>
+       
+      </tabset>
+    </div>
+  </div>
+</div>

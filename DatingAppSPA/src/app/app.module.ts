@@ -1,3 +1,5 @@
+import { PreventUnsaveChangesGuard } from './_guard/prevent-unsave-changes.gaurd';
+import { MemberEditResolver } from './_resolvers/member-edit.resolver';
 import { AuthModule } from './auth/auth.module';
 import { RouterModule } from '@angular/router';
 import { AuthGuard } from './_guard/auth.guard';
@@ -22,6 +24,7 @@ import { MemberDetailComponent } from './member-detail/member-detail.component';
 import { MemberDetailResolver } from './_resolvers/member-detail.resolver';
 
 import { NgxGalleryModule } from 'ngx-gallery';
+import { MemberEditComponent } from './member-edit/member-edit.component';
 
 
 @NgModule({
@@ -34,7 +37,8 @@ import { NgxGalleryModule } from 'ngx-gallery';
       MessageComponent,
       ListsComponent,
       MemberCardComponent,
-      MemberDetailComponent
+      MemberDetailComponent,
+      MemberEditComponent
    ],
    imports: [
       BrowserModule,
@@ -50,7 +54,9 @@ import { NgxGalleryModule } from 'ngx-gallery';
       AlertifyService,
       AuthGuard,
       UserService,
-      MemberDetailResolver
+      MemberDetailResolver,
+      MemberEditResolver,
+      PreventUnsaveChangesGuard
    ],
    bootstrap: [
       AppComponent
