@@ -20,7 +20,7 @@ export class MemberEditResolver implements Resolve<User> {
         private authService: AuthService ) { }
 
     resolve(route: ActivatedRouteSnapshot): Observable<User> {
-        const userId = this.jwtHelper.decodeToken(localStorage.getItem('token')).nameid;
+        const userId = this.authService.decodedToken.nameid;
         return this.userService.getUser(userId).catch(error => {
             this.alertify.error('Problem retrieving data');
             this.router.navigate(['/members']);

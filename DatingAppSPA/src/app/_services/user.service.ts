@@ -6,9 +6,7 @@ import { environment } from '../../environments/environment';
 import { User } from '../_models/user';
 import { RequestOptions, Headers, Http } from '@angular/http';
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable()
 export class UserService {
   baseUrl =  environment.apiUrl;
 
@@ -28,6 +26,13 @@ export class UserService {
   updateUser( id: number, user: User) {
     return this.authHttp.put(this.baseUrl + 'users/' + id, user, this.jwt()).catch(this.handleError);
   }
+  setMainPhoto(userId: number, id: number) {
+    return this.authHttp.put(this.baseUrl + 'users/' + userId + '/photos/' + id + '/setMain', {}, this.jwt()).catch(this.handleError);
+  }
+  deletePhoto(userId: number, id: number) {
+    return this.authHttp.delete(this.baseUrl + 'users/' + userId + '/photos/' + id , this.jwt()).catch(this.handleError);
+  }
+
   private jwt() {
     const token = localStorage.getItem('token');
     if (token) {

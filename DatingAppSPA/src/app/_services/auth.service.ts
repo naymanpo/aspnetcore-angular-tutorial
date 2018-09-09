@@ -1,29 +1,38 @@
-import { Injectable } from '@angular/core';
+import { Injectable, OnInit } from '@angular/core';
 import { Http, RequestOptions , Headers, Response} from '@angular/http';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
+// tslint:disable-next-line:import-blacklist
 import { Observable } from 'rxjs/Rx';
 import { tokenNotExpired, JwtHelper, AuthHttp } from 'angular2-jwt';
+import { BehaviorSubject } from 'rxjs';
+import { User } from '../_models/user';
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable()
 export class AuthService {
   baseUrl = 'http://localhost:5000/api/auth/';
   userToken: any;
-
+  currentUser: User;
+  private photoUrl = new BehaviorSubject<string>('./../../assets/download.png' );
+  currentPhotoUrl = this.photoUrl.asObservable();
   decodedToken: any;
   jwtHelper: JwtHelper = new JwtHelper();
   constructor(private http: Http) {
    }
+   changeMemberPhotoUrl(photoUrl: string) {
+     this.photoUrl.next(photoUrl);
+   }
+
   login(model: any) {
     return this.http.post(this.baseUrl + 'login' , model, this.requestOptions() ).map(( response: Response )  => {
       const user = response.json();
       if (user) {
         localStorage.setItem('token', user.tokenString);
         this.decodedToken = this.jwtHelper.decodeToken( user.tokenString );
-        console.log( this.decodedToken.nameid );
+        this.currentUser = user.user;
+        localStorage.setItem('user', JSON.stringify(this.currentUser));
         this.userToken = user.tokenString;
+        this.changeMemberPhotoUrl(this.currentUser.photoUrl);
       }
     }).catch(this.handleError);
   }

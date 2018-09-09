@@ -16,6 +16,7 @@ export class MemberEditComponent implements OnInit {
   user: User;
   jwtHelper = new JwtHelper();
   @ViewChild('editForm') editForm: NgForm;
+  photoUrl: string;
   constructor(
     private router: ActivatedRoute,
     private alertifyService: AlertifyService,
@@ -28,6 +29,7 @@ export class MemberEditComponent implements OnInit {
         this.user = data['user'];
       }
     );
+    this.authService.currentPhotoUrl.subscribe(photoUrl => this.photoUrl = photoUrl);
   }
   updateUser() {
     const userId = this.jwtHelper.decodeToken(localStorage.getItem('token')).nameid;
@@ -37,6 +39,9 @@ export class MemberEditComponent implements OnInit {
     }, error => {
       this.alertifyService.error(error);
     });
+  }
+  updateMainPhoto(photoUrl) {
+    this.user.photoUrl = photoUrl;
   }
 
 }

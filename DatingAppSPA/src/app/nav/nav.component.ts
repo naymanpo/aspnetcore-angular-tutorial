@@ -10,10 +10,12 @@ import { Router } from '@angular/router';
 })
 export class NavComponent implements OnInit {
    model: any = { };
+   photoUrl: string;
 
   constructor(private authservice: AuthService , private alertifyService: AlertifyService, private  route: Router) { }
 
   ngOnInit() {
+    this.authservice.currentPhotoUrl.subscribe(photoUrl => this.photoUrl = photoUrl);
   }
 
   login() {
