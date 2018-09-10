@@ -4,8 +4,7 @@ import { User } from '../_models/user';
 import { Resolve, Router, ActivatedRouteSnapshot } from '@angular/router';
 import { Injectable, NgModule } from '@angular/core';
 import { UserService } from '../_services/user.service';
-// tslint:disable-next-line:import-blacklist
-import { Observable } from 'rxjs/Rx';
+import { Observable } from 'rxjs';
 import 'rxjs/add/operator/catch';
 
 @Injectable()

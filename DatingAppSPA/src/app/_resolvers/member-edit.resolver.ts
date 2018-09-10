@@ -12,7 +12,6 @@ import 'rxjs/add/operator/catch';
 
 @Injectable()
 export class MemberEditResolver implements Resolve<User> {
-    jwtHelper = new JwtHelper();
     constructor(
         private userService: UserService,
         private alertify: AlertifyService,

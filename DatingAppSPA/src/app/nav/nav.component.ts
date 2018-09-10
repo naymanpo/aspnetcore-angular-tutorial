@@ -1,3 +1,4 @@
+import { UserService } from './../_services/user.service';
 import { AlertifyService } from './../_services/alertify.service';
 import { AuthService } from './../_services/auth.service';
 import { Component, OnInit } from '@angular/core';
@@ -12,7 +13,10 @@ export class NavComponent implements OnInit {
    model: any = { };
    photoUrl: string;
 
-  constructor(private authservice: AuthService , private alertifyService: AlertifyService, private  route: Router) { }
+  constructor(private authservice: AuthService ,
+    private alertifyService: AlertifyService,
+    private  route: Router,
+    private userService: UserService) { }
 
   ngOnInit() {
     this.authservice.currentPhotoUrl.subscribe(photoUrl => this.photoUrl = photoUrl);

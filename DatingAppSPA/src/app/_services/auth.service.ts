@@ -1,38 +1,47 @@
+import { AlertifyService } from './alertify.service';
+import { UserService } from './user.service';
+import { environment } from './../../environments/environment';
 import { Injectable, OnInit } from '@angular/core';
-import { Http, RequestOptions , Headers, Response} from '@angular/http';
+import {  RequestOptions , Headers, Response, Http} from '@angular/http';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
-// tslint:disable-next-line:import-blacklist
-import { Observable } from 'rxjs/Rx';
-import { tokenNotExpired, JwtHelper, AuthHttp } from 'angular2-jwt';
+import { Observable } from 'rxjs';
+import { tokenNotExpired, JwtHelper } from 'angular2-jwt';
 import { BehaviorSubject } from 'rxjs';
 import { User } from '../_models/user';
+import 'rxjs/add/observable/throw';
 
 @Injectable()
 export class AuthService {
-  baseUrl = 'http://localhost:5000/api/auth/';
+
+  baseUrl = environment.apiUrl;
   userToken: any;
   currentUser: User;
   private photoUrl = new BehaviorSubject<string>('./../../assets/download.png' );
   currentPhotoUrl = this.photoUrl.asObservable();
   decodedToken: any;
   jwtHelper: JwtHelper = new JwtHelper();
-  constructor(private http: Http) {
-   }
+
+  constructor(private http: Http ) {
+    if ( this.userToken === undefined && tokenNotExpired('token')) {
+      const token = localStorage.getItem('token');
+      this.userToken = token;
+      this.decodedToken = this.jwtHelper.decodeToken(token);
+    }
+  }
+
    changeMemberPhotoUrl(photoUrl: string) {
      this.photoUrl.next(photoUrl);
    }
 
   login(model: any) {
-    return this.http.post(this.baseUrl + 'login' , model, this.requestOptions() ).map(( response: Response )  => {
+    return this.http.post(this.baseUrl + 'auth/' + 'login' , model, this.requestOptions()).map(( response: Response )  => {
       const user = response.json();
       if (user) {
         localStorage.setItem('token', user.tokenString);
-        this.decodedToken = this.jwtHelper.decodeToken( user.tokenString );
-        this.currentUser = user.user;
-        localStorage.setItem('user', JSON.stringify(this.currentUser));
+        this.decodedToken = this.jwtHelper.decodeToken(user.tokenString);
         this.userToken = user.tokenString;
-        this.changeMemberPhotoUrl(this.currentUser.photoUrl);
+        // this.changeMemberPhotoUrl(this.currentUser.photoUrl);
       }
     }).catch(this.handleError);
   }
