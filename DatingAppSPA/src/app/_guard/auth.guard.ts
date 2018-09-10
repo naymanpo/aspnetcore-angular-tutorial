@@ -16,7 +16,9 @@ export class AuthGuard implements CanActivate {
         const userId = this.authService.decodedToken.nameid;
         this.userService.getUser(userId).subscribe(data => {
           this.authService.currentUser = data;
-          this.authService.changeMemberPhotoUrl(data.photoUrl);
+          if  (data.photoUrl !== null) {
+            this.authService.changeMemberPhotoUrl(data.photoUrl);
+          }
         });
       return true;
     }

@@ -9,6 +9,7 @@ using System.Security.Claims;
 using Microsoft.IdentityModel.Tokens;
 using System;
 using Microsoft.Extensions.Configuration;
+using AutoMapper;
 
 namespace DatingApp.API.Controllers
 {
@@ -18,10 +19,12 @@ namespace DatingApp.API.Controllers
     {
         IConfiguration _config;
         private readonly IAuthRepository _repo;
-        public AuthController(IAuthRepository repo,IConfiguration config)
+        private readonly IMapper _mapper;
+        public AuthController(IAuthRepository repo,IConfiguration config, IMapper mapper)
         {
             _repo = repo;
             _config = config;
+            _mapper = mapper;
         }
 
 
@@ -39,13 +42,12 @@ namespace DatingApp.API.Controllers
                 return BadRequest("User have already");
             };
 
-            var userToCreate = new User
-            {
-                Username = userdto.Username
-            };
+          
+           var userToCreate = _mapper.Map<User>(userdto);
             var createUser = await _repo.Register(userToCreate, userdto.Password);
+            var userReturn = _mapper.Map<UserForDetailedDto>(createUser);
 
-            return StatusCode(201);
+            return CreatedAtAction("GetUser", new {controller = "users", id = createUser.Id},userReturn);
         }
 
         [HttpPost("login")]

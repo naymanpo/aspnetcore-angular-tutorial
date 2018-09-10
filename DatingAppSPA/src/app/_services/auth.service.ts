@@ -14,7 +14,7 @@ import 'rxjs/add/observable/throw';
 @Injectable()
 export class AuthService {
 
-  baseUrl = environment.apiUrl;
+  baseUrl = environment.apiUrl + 'auth/';
   userToken: any;
   currentUser: User;
   private photoUrl = new BehaviorSubject<string>('./../../assets/download.png' );
@@ -35,7 +35,7 @@ export class AuthService {
    }
 
   login(model: any) {
-    return this.http.post(this.baseUrl + 'auth/' + 'login' , model, this.requestOptions()).map(( response: Response )  => {
+    return this.http.post(this.baseUrl  + 'login' , model, this.requestOptions()).map(( response: Response )  => {
       const user = response.json();
       if (user) {
         localStorage.setItem('token', user.tokenString);

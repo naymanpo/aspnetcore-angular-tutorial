@@ -9,6 +9,7 @@ import { NgModule } from '@angular/core';
 import { HttpModule } from '@angular/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TabsModule } from 'ngx-bootstrap';
+import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { AppComponent } from './app.component';
 import { NavComponent } from './nav/nav.component';
 import { AuthService } from './_services/auth.service';
@@ -50,6 +51,7 @@ import { FileUploadModule } from 'ng2-file-upload';
       RouterModule.forRoot(appRoutes),
       AuthModule,
        TabsModule.forRoot(),
+       BsDatepickerModule.forRoot(),
        NgxGalleryModule,
        FileUploadModule,
        ReactiveFormsModule
