@@ -1,3 +1,4 @@
+import { MemberListResolver } from './_resolvers/member-list.resolver';
 import { PreventUnsaveChangesGuard } from './_guard/prevent-unsave-changes.gaurd';
 import { MemberEditResolver } from './_resolvers/member-edit.resolver';
 import { AuthModule } from './auth/auth.module';
@@ -10,6 +11,7 @@ import { HttpModule } from '@angular/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TabsModule } from 'ngx-bootstrap';
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
+import { PaginationModule } from 'ngx-bootstrap/pagination';
 import { AppComponent } from './app.component';
 import { NavComponent } from './nav/nav.component';
 import { AuthService } from './_services/auth.service';
@@ -54,7 +56,8 @@ import { FileUploadModule } from 'ng2-file-upload';
        BsDatepickerModule.forRoot(),
        NgxGalleryModule,
        FileUploadModule,
-       ReactiveFormsModule
+       ReactiveFormsModule,
+       PaginationModule.forRoot()
    ],
    providers: [
       AuthService,
@@ -63,6 +66,7 @@ import { FileUploadModule } from 'ng2-file-upload';
       UserService,
       MemberDetailResolver,
       MemberEditResolver,
+      MemberListResolver,
       PreventUnsaveChangesGuard
    ],
    bootstrap: [
