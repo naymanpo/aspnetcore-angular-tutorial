@@ -30,6 +30,7 @@ import { NgxGalleryModule } from 'ngx-gallery';
 import { MemberEditComponent } from './member-edit/member-edit.component';
 import { PhotoEditorComponent } from './photo-editor/photo-editor.component';
 import { FileUploadModule } from 'ng2-file-upload';
+import { ListsResolver } from './_resolvers/lists.resolver';
 
 
 @NgModule({
@@ -68,7 +69,8 @@ import { FileUploadModule } from 'ng2-file-upload';
       MemberDetailResolver,
       MemberEditResolver,
       MemberListResolver,
-      PreventUnsaveChangesGuard
+      PreventUnsaveChangesGuard,
+      ListsResolver
    ],
    bootstrap: [
       AppComponent

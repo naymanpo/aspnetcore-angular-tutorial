@@ -10,11 +10,19 @@ export class UserService {
   baseUrl =  environment.apiUrl;
 
   constructor(private authHttp: Http) { }
-  getUsers(page?: number, itemsPerPage?: number, userParams?: any): Observable<PaginatedResult<User[]>>  {
+  getUsers(page?: number, itemsPerPage?: number, userParams?: any, likesParam?: string): Observable<PaginatedResult<User[]>>  {
     const paginatedResult: PaginatedResult<User[]> = new PaginatedResult<User[]>();
     let queryString = '?';
     if ( page != null && itemsPerPage != null) {
       queryString += 'pageNumber=' + page + '&pageSize=' + itemsPerPage + '&';
+    }
+
+    if (likesParam === 'likers') {
+      queryString += 'likers=true&';
+    }
+
+    if (likesParam === 'likees') {
+      queryString += 'likees=true&';
     }
 
     if ( userParams != null) {
@@ -49,6 +57,10 @@ export class UserService {
   }
   deletePhoto(userId: number, id: number) {
     return this.authHttp.delete(this.baseUrl + 'users/' + userId + '/photos/' + id , this.jwt()).catch(this.handleError);
+  }
+
+  sendLike(id: number, recipientId: number) {
+    return this.authHttp.post(this.baseUrl + 'users/' + id + '/like/' + recipientId, {}, this.jwt()).catch(this.handleError);
   }
 
   private jwt() {

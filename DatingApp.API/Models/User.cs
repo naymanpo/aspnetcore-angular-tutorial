@@ -23,6 +23,8 @@ namespace DatingApp.API.Models
         public string Country { set; get;}
 
         public ICollection<Photo> Photos { set; get; }
+        public ICollection<Like> Liker { set; get;}
+        public ICollection<Like> Likee { set;get;}
 
         public User() {
             Photos = new Collection<Photo>();

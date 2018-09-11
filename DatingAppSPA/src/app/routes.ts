@@ -1,3 +1,4 @@
+import { ListsResolver } from './_resolvers/lists.resolver';
 import { PreventUnsaveChangesGuard } from './_guard/prevent-unsave-changes.gaurd';
 import { MemberEditResolver } from './_resolvers/member-edit.resolver';
 import { MemberDetailResolver } from './_resolvers/member-detail.resolver';
@@ -31,7 +32,7 @@ export const appRoutes: Routes = [
             }, {
                 path: 'messages', component: MessageComponent
             }, {
-                path: 'lists', component: ListsComponent
+                path: 'lists', component: ListsComponent, resolve: { users: ListsResolver }
             }
         ]
     }, {
