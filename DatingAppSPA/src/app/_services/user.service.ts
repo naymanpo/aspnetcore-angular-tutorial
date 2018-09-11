@@ -10,11 +10,19 @@ export class UserService {
   baseUrl =  environment.apiUrl;
 
   constructor(private authHttp: Http) { }
-  getUsers(page?: number, itemsPerPage?: number): Observable<PaginatedResult<User[]>>  {
+  getUsers(page?: number, itemsPerPage?: number, userParams?: any): Observable<PaginatedResult<User[]>>  {
     const paginatedResult: PaginatedResult<User[]> = new PaginatedResult<User[]>();
     let queryString = '?';
     if ( page != null && itemsPerPage != null) {
-      queryString += 'pageNumber=' + page + '&pageSize=' + itemsPerPage;
+      queryString += 'pageNumber=' + page + '&pageSize=' + itemsPerPage + '&';
+    }
+
+    if ( userParams != null) {
+      queryString +=
+        'minAge=' + userParams.minAge
+        + '&maxAge=' + userParams.maxAge
+        + '&gender=' + userParams.gender
+        + '&orderBy=' + userParams.orderBy;
     }
     return this.authHttp.get(this.baseUrl + 'users' + queryString, this.jwt())
     .map((response: Response) => {

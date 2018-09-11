@@ -9,7 +9,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpModule } from '@angular/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { TabsModule } from 'ngx-bootstrap';
+import { TabsModule, ButtonsModule } from 'ngx-bootstrap';
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { PaginationModule } from 'ngx-bootstrap/pagination';
 import { AppComponent } from './app.component';
@@ -57,7 +57,8 @@ import { FileUploadModule } from 'ng2-file-upload';
        NgxGalleryModule,
        FileUploadModule,
        ReactiveFormsModule,
-       PaginationModule.forRoot()
+       PaginationModule.forRoot(),
+       ButtonsModule.forRoot()
    ],
    providers: [
       AuthService,
