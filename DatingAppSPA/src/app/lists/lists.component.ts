@@ -42,10 +42,9 @@ export class ListsComponent implements OnInit {
         this.alertifyService.error(error);
       });
   }
- 
   pageChanged(event: any): void {
     this.pagination.currentPage = event.page;
-    this.loadUsers();
+    this.loadUsers(this.likesParam);
   }
 
 }

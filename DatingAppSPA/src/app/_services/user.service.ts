@@ -4,6 +4,7 @@ import { Injectable } from '@angular/core';
 import { environment } from '../../environments/environment';
 import { User } from '../_models/user';
 import { RequestOptions, Headers, Http, Response } from '@angular/http';
+import { Message } from '../_models/message';
 
 @Injectable()
 export class UserService {
@@ -63,6 +64,31 @@ export class UserService {
     return this.authHttp.post(this.baseUrl + 'users/' + id + '/like/' + recipientId, {}, this.jwt()).catch(this.handleError);
   }
 
+  getMessages(id: number, page?: number, itemsPerPage?: number, messageContainer?: string): Observable<PaginatedResult<Message[]>> {
+    const paginatedResult: PaginatedResult<Message[]> = new PaginatedResult<Message[]>();
+    let queryString = '?MessageContainer=' + messageContainer;
+    if ( page != null && itemsPerPage != null ) {
+      queryString += '&pageNumber=' + page + '&pageSize=' + itemsPerPage;
+    }
+
+    return this.authHttp.get(this.baseUrl + 'users/' + id + '/messages/' + queryString, this.jwt())
+      .map((response: Response) => {
+          paginatedResult.result = response.json();
+          if (response.headers.get('Pagination') != null) {
+            paginatedResult.pagination = JSON.parse(response.headers.get('Pagination'));
+          }
+          return paginatedResult;
+
+      }).catch(this.handleError);
+  }
+
+  getMessageThread(id: number, recipientId: number) {
+    return this.authHttp.get(this.baseUrl + 'users/' + id
+    + '/messages/thread/' + recipientId, this.jwt()).map((response: Response) => {
+        return response.json();
+    }).catch(this.handleError);
+
+  }
   private jwt() {
     const token = localStorage.getItem('token');
     if (token) {
